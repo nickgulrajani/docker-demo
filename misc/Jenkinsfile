@@ -1,5 +1,8 @@
 node {
    def commit_id
+   environment {
+        credentials-id = '6a4499da-23ac-4e27-8268-fe24e9b41b1a'
+    }
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"                        
@@ -8,7 +11,7 @@ node {
    stage('test') {
      nodejs(nodeJSInstallationName: 'nodejs') {
        sh 'npm install --only=dev'
-       sh 'npm audit fix'
+       sh 'npm audit fix --force'
        sh 'npm test'
      }
    }
