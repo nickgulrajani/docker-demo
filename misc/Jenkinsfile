@@ -9,22 +9,28 @@ pipeline {
    
    stages {
    stage('Preparation') {
+     steps {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"                        
      commit_id = readFile('.git/commit-id').trim()
    }
+   }
    stage('test') {
+     steps {
      nodejs(nodeJSInstallationName: 'nodejs') {
        sh 'npm install --only=dev'
        sh 'npm audit fix --force'
        sh 'npm test'
      }
    }
+}
    stage('docker build/push') {
 //     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+       steps {
        docker.withRegistry( '', registryCredential ){
        def app = docker.build("nicholasgull/docker-nodejs-demo:${commit_id}", '.').push()
      }
    }
+}
 }
 }
