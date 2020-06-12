@@ -29,7 +29,7 @@ pipeline {
 //     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
        steps {
        docker.withRegistry( '', registryCredential ){
-       def app = docker.build("nicholasgull/docker-nodejs-demo:${commit_id}", '.').push()
+       def app = docker.build("nicholasgull/docker-nodejs-demo", '.').push()
      }
    }
 }
