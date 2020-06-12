@@ -1,9 +1,10 @@
 pipeline {
-   def commit_id
+  //  def commit_id
    environment {
    registry = "nicholasgull/docker-nodejs-demo"
    registryCredential = 'dockerhubid'
    dockerImage = ''
+   
 }
    agent any
    
