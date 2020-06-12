@@ -1,10 +1,13 @@
-node {
+pipeline {
    def commit_id
    environment {
    registry = "nicholasgull/docker-nodejs-demo"
    registryCredential = 'dockerhubid'
    dockerImage = ''
 }
+   agent any
+   
+   stages {
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"                        
@@ -23,4 +26,5 @@ node {
        def app = docker.build("nicholasgull/docker-nodejs-demo:${commit_id}", '.').push()
      }
    }
+}
 }
