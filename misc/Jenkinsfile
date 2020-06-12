@@ -1,7 +1,7 @@
 node {
    def commit_id
    environment {
-        credentials-id = '6a4499da-23ac-4e27-8268-fe24e9b41b1a'
+        credentials-id = "6a4499da-23ac-4e27-8268-fe24e9b41b1a"
     }
    stage('Preparation') {
      checkout scm
