@@ -8,11 +8,12 @@ node {
    stage('test') {
      nodejs(nodeJSInstallationName: 'nodejs') {
        sh 'npm install --only=dev'
+       sh 'npm audit fix'
        sh 'npm test'
      }
    }
    stage('docker build/push') {
-     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub','6a4499da-23ac-4e27-8268-fe24e9b41b1a') {
+     docker.withRegistry('https://index.docker.io/v1/', 'credentials-id') {
        def app = docker.build("nicholasgull/docker-nodejs-demo:${commit_id}", '.').push()
      }
    }
